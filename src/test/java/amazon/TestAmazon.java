@@ -1,26 +1,41 @@
 package amazon;
 
+import org.testng.ITestNGMethod;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import core.DriverBase;
 import listeners.TestListener;
 import pages.AmazonPage;
+import utils.CommonUtils;
+import utils.Constants;
 
 @Listeners(TestListener.class)
 public class TestAmazon extends DriverBase{
 
 	AmazonPage amazon;
+	String workbook = "amazonTestData.xls";
+	String sheet = "productSearch";
 	
 	@BeforeClass
 	public void init(){
 		amazon = new AmazonPage(driver);
 	}
 	
-	@Test
-	public void searchItem(){
-		amazon.searchItem("mobile");
+	/* ************************************Data Provider**********************************************/
+	
+	@DataProvider(name = "testSearchProduct")
+	public Object[][] testCreateExportListJob(ITestNGMethod method) {
+		Object[][] params = CommonUtils.getExcelInputData(Constants.TEST_DATA_AMAZON_PATH + workbook, sheet, "testSearchItem");
+		return (params);
+	}
+	
+	/* ************************************ Test Methods **********************************************/
+	@Test(enabled = true, dataProvider = "testSearchProduct")
+	public void searchItem(String itemName){
+		amazon.searchItem(itemName);
 	}
 	
 	
