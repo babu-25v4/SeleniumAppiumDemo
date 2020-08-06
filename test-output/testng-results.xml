@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+    <line>
+      <![CDATA[Info: test.properties loaded successfully...<br>]]>
+    </line>
+    <line>
+      <![CDATA[Info: Enter URL: https://www.amazon.com/<br>]]>
+    </line>
+    <line>
+      <![CDATA[Info: User Credentilas are emply please check...<br>]]>
+    </line>
+    <line>
+      <![CDATA[TEST : searchItem STARTED.]]>
+    </line>
+    <line>
+      <![CDATA[Pass: 'Amazon logo' is clicked<br>]]>
+    </line>
+    <line>
+      <![CDATA[TEST : searchItem PASSED.]]>
+    </line>
+    <line>
+      <![CDATA[Info: Driver quit successfully<br>]]>
+    </line>
+  </reporter-output>
+  <suite name="Selenium Appium Tests" duration-ms="38104" started-at="2020-06-16T12:44:15Z" finished-at="2020-06-16T12:44:53Z">
+    <groups>
+    </groups>
+    <test name="Amazon Tests" duration-ms="38104" started-at="2020-06-16T12:44:15Z" finished-at="2020-06-16T12:44:53Z">
+      <class name="amazon.TestAmazon">
+        <test-method status="PASS" signature="launchBrowser()[pri:0, instance:amazon.TestAmazon@2b9627bc]" name="launchBrowser" is-config="true" duration-ms="10752" started-at="2020-06-16T18:14:15Z" finished-at="2020-06-16T18:14:25Z">
+          <reporter-output>
+            <line>
+              <![CDATA[Info: test.properties loaded successfully...<br>]]>
+            </line>
+            <line>
+              <![CDATA[Info: Enter URL: https://www.amazon.com/<br>]]>
+            </line>
+            <line>
+              <![CDATA[Info: User Credentilas are emply please check...<br>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method status="PASS" signature="init()[pri:0, instance:amazon.TestAmazon@2b9627bc]" name="init" is-config="true" duration-ms="3" started-at="2020-06-16T18:14:25Z" finished-at="2020-06-16T18:14:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="searchItem()[pri:0, instance:amazon.TestAmazon@2b9627bc]" name="searchItem" duration-ms="22282" started-at="2020-06-16T18:14:25Z" finished-at="2020-06-16T18:14:48Z">
+          <reporter-output>
+            <line>
+              <![CDATA[TEST : searchItem STARTED.]]>
+            </line>
+            <line>
+              <![CDATA[Pass: 'Amazon logo' is clicked<br>]]>
+            </line>
+            <line>
+              <![CDATA[TEST : searchItem PASSED.]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- searchItem -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:amazon.TestAmazon@2b9627bc]" name="tearDown" is-config="true" duration-ms="0" started-at="2020-06-16T18:14:48Z" finished-at="2020-06-16T18:14:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="quitDriver()[pri:0, instance:amazon.TestAmazon@2b9627bc]" name="quitDriver" is-config="true" duration-ms="5037" started-at="2020-06-16T18:14:48Z" finished-at="2020-06-16T18:14:53Z">
+          <reporter-output>
+            <line>
+              <![CDATA[Info: Driver quit successfully<br>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- quitDriver -->
+      </class> <!-- amazon.TestAmazon -->
+    </test> <!-- Amazon Tests -->
+  </suite> <!-- Selenium Appium Tests -->
+</testng-results>
