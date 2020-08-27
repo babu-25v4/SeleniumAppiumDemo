@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -17,7 +18,14 @@ import utils.Constants;
 import utils.DriverUtils;
 import utils.Report;
 
-public class DriverActions {
+/**
+ * This class Contains browser actions for web elements. It must be extended by
+ * every page class.
+ * 
+ * @author bmunegow
+ *
+ */
+abstract public class DriverActions {
 
 	protected WebDriver driver;
 
@@ -29,7 +37,34 @@ public class DriverActions {
 		this.driver = driver;	
 	}
 
-	protected void click(String locator, String locatorType, String objectName) {
+	protected void setValue(String locator, String value, String objectName, String locatorType) {
+		try {
+			WebElement element = getWebElement(locator, locatorType);
+			if (element != null) {
+				// Clear the text first in the text box.
+				String textPresent = element.getAttribute("value");
+				if (textPresent != null && !textPresent.isEmpty()) {
+					String selectAll = Keys.chord(Keys.CONTROL, "a");
+					element.sendKeys(selectAll);
+					element.sendKeys(Keys.BACK_SPACE);
+				} else {
+					textPresent = element.getText();
+					if (textPresent != null && !textPresent.isEmpty())
+						element.clear();
+				}
+				// Input the new text.
+				element.sendKeys(value);
+				DriverUtils.waitImplicit(driver, Constants.WAIT_IN_SECONDS_5);
+				Report.pass("'" + value + "' text entered into " + objectName);
+			} else {
+				Report.fail("'" + objectName + "' is not found");
+			}
+		} catch (IllegalArgumentException e) {
+			Report.fail("Invalid value " + value + " passed.");
+		}
+	}
+	
+	protected void click(String locator, String objectName, String locatorType) {
 		if(driver != null)
 			System.out.println("Not Null");
 		else

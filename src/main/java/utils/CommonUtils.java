@@ -2,7 +2,10 @@ package utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Map;
 import java.util.Properties;
+
+import org.testng.ITestNGMethod;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -46,10 +49,32 @@ public class CommonUtils {
 	}
 
 	
-	public static Object[][] getExcelInputData(String bookName, String sheetName, String testName) {
+	public static Object[][] getExcelInputData(ITestNGMethod method, String bookName, String sheetName, String testName) {
 
-		System.out.println("BookName: " + bookName);
-		System.out.println("SheetName: " + sheetName);
+		int tdepth = 0;
+		String tWorkBook = null;
+		String tSheetName = null;
+		String testPath = bookName.substring(0, bookName.lastIndexOf(File.separator))+File.separator;
+				
+		Map<String, String> testparams = method.findMethodParameters(method.getXmlTest());
+		boolean keyFound = testparams.containsKey("testdepth");
+		boolean tBookFound = testparams.containsKey("Workbook");
+		boolean tSheetFound = testparams.containsKey("Sheet");
+		if(tBookFound && tSheetFound){
+			tWorkBook = testPath + testparams.get("Workbook");
+			tSheetName = testparams.get("Sheet");
+		}else{
+			tWorkBook = bookName;
+			tSheetName = sheetName;
+		}
+		
+		if (keyFound) {
+			tdepth = Integer.parseInt(testparams.get("testdepth"));
+			Report.info("TestDepth for the Method {" + method.getMethodName() + "} - " + tdepth);
+		}
+		
+		System.out.println("BookName: " + tWorkBook);
+		System.out.println("SheetName: " + tSheetName);
 		int testDepth = Integer.parseInt(getProperty("testDepth"));
 
 		// dTestDepth parameter from -D parameters
@@ -58,7 +83,7 @@ public class CommonUtils {
 			testDepth = Integer.parseInt(dTestDepth.trim());
 		}
 		Report.info("testdepth is: "+testDepth);
-		return getExcelInputDataArrayBasedOnDepth(bookName, sheetName, testName, testDepth);
+		return getExcelInputDataArrayBasedOnDepth(tWorkBook, tSheetName, testName, testDepth);
 	}
 
 	public static Object[][] getExcelInputDataArrayBasedOnDepth(String bookName, String sheetName, String testName, int testDepth) {

@@ -10,6 +10,9 @@
 
 	<test name="Amazon Tests" preserve-order="true">
 		<parameter name="browser" value="chrome" />
+		<parameter name="testdepth" value="4" />
+		<parameter name="Workbook" value="amazonTestData.xls" />
+		<parameter name="Sheet" value="productSearch" />		
 		<classes>
 			<class name="amazon.TestAmazon">
 				<methods>

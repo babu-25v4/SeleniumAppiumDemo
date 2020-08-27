@@ -18,6 +18,7 @@ public class TestAmazon extends DriverBase{
 	AmazonPage amazon;
 	String workbook = "amazonTestData.xls";
 	String sheet = "productSearch";
+	private static final String TESTPATH = Constants.TEST_DATA_AMAZON_PATH;
 	
 	@BeforeClass
 	public void init(){
@@ -28,7 +29,7 @@ public class TestAmazon extends DriverBase{
 	
 	@DataProvider(name = "testSearchProduct")
 	public Object[][] testCreateExportListJob(ITestNGMethod method) {
-		Object[][] params = CommonUtils.getExcelInputData(Constants.TEST_DATA_AMAZON_PATH + workbook, sheet, "testSearchItem");
+		Object[][] params = CommonUtils.getExcelInputData(method,  TESTPATH + workbook, sheet, "testSearchItem");
 		return (params);
 	}
 	
