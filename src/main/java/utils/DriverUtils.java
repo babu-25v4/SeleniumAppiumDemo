@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -19,6 +20,8 @@ import org.testng.xml.LaunchSuite;
 public class DriverUtils {
 
 	public static WebDriver driver;
+	private static ArrayList<File> screenShotsBucket = new ArrayList<File>();
+
 
 	@BeforeTest(alwaysRun=true)
 	public static WebDriver initDriver() {
@@ -38,6 +41,20 @@ public class DriverUtils {
 		return driver;
 	}
 	
+	
+	/**
+	 * This method is created to add multiple screenshots for a test in case of failure for better investigation
+	 * @param driver
+	 */
+	public static void takeScreenshot(WebDriver driver) {
+		Report.log("Taking screenshot");
+		File screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		addScreenShotToBucket(screenShot);
+	}
+	
+	private static void addScreenShotToBucket(File screenShot) {
+		screenShotsBucket.add(screenShot);
+	}
 	
 	/**
 	 * Implicitly wait in seconds.
@@ -89,6 +106,29 @@ public class DriverUtils {
 		waitExplicit(5);
 	}
 	
+	/**
+	 * This method closes the recently opened tab on current browser
+	 * @param driver
+	 */
+	public static void closeWindow(WebDriver driver) {
+		driver.close();
+		DriverUtils.switchToDefaultWindow(driver);
+	}
+	
+	/**
+	 * Switch to the main window.
+	 * @param driver
+	 * @param windowTitle
+	 */
+	public static void switchToDefaultWindow(WebDriver driver) {
+		for (String windowHandle : driver.getWindowHandles()) {
+			if (driver.switchTo().window(windowHandle).getTitle().equals(/*TEXT_ORACLE_RESPONSYS_TITLE*/"")) //TODO
+				{
+				Report.pass("Switched to default window");
+				break;
+			}
+		}
+	}
 	
 	/*@AfterSuite(alwaysRun=true)
 	public void quitDriver(){
